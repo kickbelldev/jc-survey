@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/vite.json",
+  "extends": "@jc-survey/typescript-config/vite.json",
   "compilerOptions": {},
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"],

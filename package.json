@@ -4,12 +4,14 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:admin": "turbo dev --filter=admin",
+    "dev:web": "turbo dev --filter=web",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@jc-survey/eslint-config": "workspace:*",
+    "@jc-survey/typescript-config": "workspace:*",
     "prettier": "^3.1.1",
     "turbo": "latest"
   },

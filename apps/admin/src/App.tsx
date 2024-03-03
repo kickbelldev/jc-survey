@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './App.css'
+import { Button } from '@jc-survey/ui'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -7,6 +7,7 @@ function App() {
   return (
     <>
       <h1>Vite + React</h1>
+      <Button appName="admin">button</Button>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)} type="button">
           count is {count}
