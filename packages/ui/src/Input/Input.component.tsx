@@ -17,13 +17,8 @@ const Input = forwardRef<HTMLInputElement, Props>(
     ref,
   ) => {
     return (
-      <div className={$.container}>
-        <div
-          className={classNames([$.wrapper, isTitle ? $.title : null])}
-          style={assignInlineVars({
-            padding: isTitle ? '1rem' : null,
-          })}
-        >
+      <div className={classNames([$.container, isTitle ? $.title : null])}>
+        <div className={$.wrapper}>
           {!value && (
             <div
               className={$.placeholder}
@@ -39,7 +34,9 @@ const Input = forwardRef<HTMLInputElement, Props>(
             value={value}
             ref={ref}
           />
-          <div className={$.bottomLine} />
+          <div className={$.bottomLineWrapper}>
+            <div className={$.bottomLine} />
+          </div>
         </div>
       </div>
     )
