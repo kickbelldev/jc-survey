@@ -17,6 +17,7 @@ function SectionTitle({ idx }: Props) {
   const { sections, handleSectionInput, handleSectionDelete } = useSurveyModel()
 
   const isFirst = idx === 0
+  const canDelete = sections.length > 1
   const section = sections[idx]
 
   const handleCardFocus = useCallback(() => {
@@ -52,7 +53,7 @@ function SectionTitle({ idx }: Props) {
               title="section_title"
               value={title}
             />
-            {sections.length > 1 && (
+            {canDelete ? (
               <button
                 className={$.deleteButton}
                 onClick={() => handleSectionDelete(idx)}
@@ -60,7 +61,7 @@ function SectionTitle({ idx }: Props) {
               >
                 섹션 삭제
               </button>
-            )}
+            ) : null}
           </div>
           <Input
             fontSize="11pt"
