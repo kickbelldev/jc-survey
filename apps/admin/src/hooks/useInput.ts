@@ -2,7 +2,7 @@ import { FormEvent, useState } from 'react'
 
 type Validate = (value: string) => boolean
 
-export const useInput = (validate?: Validate) => {
+export function useInput(validate?: Validate) {
   const [value, setValue] = useState('')
   const [isError, setIsError] = useState(false)
 

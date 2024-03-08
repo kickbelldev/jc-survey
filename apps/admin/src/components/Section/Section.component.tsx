@@ -4,18 +4,18 @@ import * as $ from './Section.css'
 type Props = {
   children: ReactNode
   totalIndex: number
-  index: number
+  sectionNumber: number
 }
 
-function Section({ children, totalIndex, index }: Props) {
+function Section({ children, totalIndex, sectionNumber }: Props) {
   return (
     <section className={$.section}>
       <div className={$.sectionLabelContainer}>
         <div className={$.sectionLabel}>
-          {totalIndex} 중 {index} 섹션
+          {totalIndex} 중 {sectionNumber} 섹션
         </div>
       </div>
-      <div>{children}</div>
+      <div className={$.body}>{children}</div>
     </section>
   )
 }

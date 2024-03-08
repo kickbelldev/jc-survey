@@ -1,25 +1,35 @@
-import { FocusEvent, MouseEvent, useRef, useState } from 'react'
+import { useAtom } from 'jotai'
+import { useCallback, useRef } from 'react'
+import { cardIndex } from '../atoms/cardIndex'
 
-export const useFocusCard = () => {
-  const [isFocused, setIsFocused] = useState<boolean>(false)
+export function useFocusCard() {
+  const [openedCardIndex, setOpenedCardIndex] = useAtom(cardIndex)
 
   const cardRef = useRef<HTMLDivElement>(null)
 
-  const handleCardFocus = (e: FocusEvent<HTMLDivElement>) => {
+  const changeFocusCard = useCallback(
+    (idx: number) => {
+      if (!cardRef.current) {
+        return
+      }
+
+      setOpenedCardIndex(idx)
+    },
+    [setOpenedCardIndex],
+  )
+
+  const handleCardBlur = useCallback(() => {
     if (!cardRef.current) {
       return
     }
 
-    setIsFocused(true)
+    setOpenedCardIndex(null)
+  }, [setOpenedCardIndex])
+
+  return {
+    openedCardIndex,
+    cardRef,
+    changeFocusCard,
+    handleCardBlur,
   }
-
-  const handleCardBlur = (e: FocusEvent<HTMLDivElement>) => {
-    if (!cardRef.current) {
-      return
-    }
-
-    setIsFocused(false)
-  }
-
-  return { isFocused, cardRef, handleCardFocus, handleCardBlur }
 }

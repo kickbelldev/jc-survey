@@ -11,6 +11,8 @@ export const vars = createGlobalTheme(':root', {
     grayScale500: '#adb1ba',
     grayScale900: '#202124',
     red500: '#d93025',
+    blue500: '#4285f4',
+    shadow: 'rgba(0,0,0,0.1)',
   },
   font: {
     body: 'Roboto, RobotoDraft, Helvetica, Arial, sans-serif',

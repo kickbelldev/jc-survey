@@ -7,6 +7,7 @@ export const container = style({
   flexDirection: 'column',
   width: '100%',
   padding: '0 24px',
+  flexGrow: 1,
 })
 
 export const wrapper = style({

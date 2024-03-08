@@ -1,7 +1,7 @@
+import { FormEvent, InputHTMLAttributes, forwardRef } from 'react'
 import { assignInlineVars } from '@vanilla-extract/dynamic'
-import { FormEvent, forwardRef } from 'react'
-import * as $ from './Input.css'
 import classNames from 'classnames'
+import * as $ from './Input.css'
 
 type Props = {
   placeholder: string
@@ -9,11 +9,18 @@ type Props = {
   onChange: (e: FormEvent<HTMLInputElement>) => void
   isTitle?: boolean
   fontSize?: string
-}
+} & InputHTMLAttributes<HTMLInputElement>
 
 const Input = forwardRef<HTMLInputElement, Props>(
   (
-    { placeholder, value, onChange, isTitle = false, fontSize = '16px' },
+    {
+      placeholder,
+      value,
+      onChange,
+      isTitle = false,
+      fontSize = '16px',
+      ...props
+    },
     ref,
   ) => {
     return (
@@ -33,6 +40,8 @@ const Input = forwardRef<HTMLInputElement, Props>(
             onChange={onChange}
             value={value}
             ref={ref}
+            title={props.name}
+            {...props}
           />
           <div className={$.bottomLineWrapper}>
             <div className={$.bottomLine} />

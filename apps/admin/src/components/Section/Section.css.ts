@@ -22,3 +22,9 @@ export const sectionLabel = style({
   color: vars.color.grayScale00,
   backgroundColor: vars.color.primary500,
 })
+
+export const body = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+})

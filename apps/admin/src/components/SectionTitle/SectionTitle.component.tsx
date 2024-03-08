@@ -1,44 +1,77 @@
-import { FormEvent, ReactNode } from 'react'
-import * as $ from './SectionTitle.css'
-import { useFocusCard } from '@/hooks/useFocusCard'
+import { useCallback } from 'react'
+
 import { Card, Input } from '@jc-survey/ui'
 
+import { useFocusCard, useSurveyModel } from '@/hooks'
+
+import * as $ from './SectionTitle.css'
+
 type Props = {
-  title: string
-  onTitleChange: (e: FormEvent<HTMLInputElement>) => void
-  description: string
-  onDescriptionChange: (e: FormEvent<HTMLInputElement>) => void
+  idx: number
 }
 
-function SectionTitle({
-  title,
-  onTitleChange,
-  description,
-  onDescriptionChange,
-}: Props) {
-  const { cardRef, handleCardBlur, handleCardFocus, isFocused } = useFocusCard()
+function SectionTitle({ idx }: Props) {
+  const { cardRef, handleCardBlur, changeFocusCard, openedCardIndex } =
+    useFocusCard()
+
+  const { sections, handleSectionInput, handleSectionDelete } = useSurveyModel()
+
+  const isFirst = idx === 0
+  const section = sections[idx]
+
+  const handleCardFocus = useCallback(() => {
+    if (!section) {
+      return
+    }
+
+    changeFocusCard(idx)
+  }, [changeFocusCard, idx, section])
+
+  if (!section) {
+    return null
+  }
+
+  const { title, description } = section
+
   return (
-    <div>
-      <Card
-        isFirst
-        isFocused={isFocused}
-        onBlur={handleCardBlur}
-        onFocus={handleCardFocus}
-        ref={cardRef}
-      >
-        <Input
-          fontSize="12pt"
-          onChange={onTitleChange}
-          placeholder="섹션 제목(선택 사항)"
-          value={title}
-        />
-        <Input
-          fontSize="11pt"
-          onChange={onDescriptionChange}
-          placeholder="섹션 설명(선택 사항)"
-          value={description}
-        />
-      </Card>
+    <div className={$.firstCard}>
+      <div className={isFirst ? $.firstCardHighlighter : undefined}>
+        <Card
+          isFirst
+          isFocused={openedCardIndex === idx}
+          onBlur={handleCardBlur}
+          onFocus={handleCardFocus}
+          ref={cardRef}
+        >
+          <div className={$.titleWrapper}>
+            <Input
+              fontSize={isFirst ? '24pt' : '12pt'}
+              name="title"
+              onChange={handleSectionInput}
+              placeholder="섹션 제목(선택 사항)"
+              title="section_title"
+              value={title}
+            />
+            {sections.length > 1 && (
+              <button
+                className={$.deleteButton}
+                onClick={() => handleSectionDelete(idx)}
+                type="button"
+              >
+                섹션 삭제
+              </button>
+            )}
+          </div>
+          <Input
+            fontSize="11pt"
+            name="description"
+            onChange={handleSectionInput}
+            placeholder="섹션 설명(선택 사항)"
+            title="section_description"
+            value={description}
+          />
+        </Card>
+      </div>
     </div>
   )
 }

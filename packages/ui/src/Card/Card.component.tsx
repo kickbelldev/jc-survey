@@ -1,4 +1,4 @@
-import { FocusEvent, MouseEvent, ReactNode, forwardRef } from 'react'
+import { FocusEvent, ReactNode, forwardRef } from 'react'
 import * as $ from './Card.css'
 import classNames from 'classnames'
 
@@ -11,20 +11,22 @@ interface Props {
 }
 
 export const Card = forwardRef<HTMLDivElement, Props>(
-  ({ children, isFirst = false, isFocused = false, onFocus, onBlur }, ref) => {
-    return (
+  ({ children, isFirst = false, isFocused = false, onFocus, onBlur }, ref) => (
+    <div
+      className={classNames([
+        $.container,
+        isFirst ? $.first : null,
+        isFocused ? $.focused : null,
+      ])}
+    >
       <div
         onFocus={onFocus}
         onBlur={onBlur}
-        className={classNames([
-          $.card,
-          isFirst ? $.first : null,
-          isFocused ? $.focused : null,
-        ])}
+        className={classNames([$.card, isFirst ? $.first : null])}
         ref={ref}
       >
         {children}
       </div>
-    )
-  },
+    </div>
+  ),
 )
